@@ -4,22 +4,40 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Translator_from_python_to_block_diagram"
+        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="700*"/>
-            <RowDefinition Height="100*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="740*"/>
         </Grid.RowDefinitions>
 
-        <UniformGrid Grid.Row="1" Columns="2" Background="LightGray">
-            <TextBox x:Name="FilePathTextBox"/>
-            <UniformGrid Columns="4">
-                <Button Content="Open"/>
-                <Button Margin="10" Content="Translate"/>
-                <Button Margin="10" Content="Run" Background="LightGreen"/>
-                <Button Margin="10" Content="Save" Background="LightGreen"/>
+        <UniformGrid Grid.Row="0" Columns="2" Background="LightGray">
+            <TextBox x:Name="FilePathTextBox" Text="{Binding FilePath}"/>
+            <UniformGrid Columns="3">
+                <Button Content="Open" Click="OpenButton_Click"/>
+                <Button Margin="5" Content="Translate"/>
+                <Button Margin="5" Content="Save" Click="SaveButton_Click"  Background="LightGreen"/>
             </UniformGrid>
         </UniformGrid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1">
+                <avalonEdit:TextEditor x:Name="pythonCodeEditor" SyntaxHighlighting="Python"/>
+            </Border>
+
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
+
+            <Border Grid.Column="2" BorderBrush="Black" BorderThickness="1">
+            </Border>
+
+        </Grid>
     </Grid>
 </Window>
