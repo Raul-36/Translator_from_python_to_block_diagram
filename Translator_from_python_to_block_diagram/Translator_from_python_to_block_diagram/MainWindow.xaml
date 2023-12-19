@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Translator_from_python_to_block_diagram"
         xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+         xmlns:go="http://schemas.nwoods.com/GoXam"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
@@ -36,6 +37,47 @@
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
 
             <Border Grid.Column="2" BorderBrush="Black" BorderThickness="1">
+                <go:Diagram x:Name="myDiagram" Padding="10" AllowZoom="True" Grid.Visible="True">
+                    <go:Diagram.Layout>
+                        <go:TreeLayout />
+                    </go:Diagram.Layout>
+
+                    <!-- Шаблон узла -->
+                    <DataTemplate x:Key="NodeTemplate">
+                        <Ellipse Width="50" Height="50" Fill="{Binding Fill}" Stroke="Black" />
+                    </DataTemplate>
+
+                    <!-- Шаблон связи -->
+                    <DataTemplate x:Key="LinkTemplate">
+                        <go:LinkPanel>
+                            <go:LinkShape Stroke="Black"/>
+                            <Path Fill="Black" Stroke="Black" go:LinkPanel.ToArrow="Standard"/>
+                        </go:LinkPanel>
+                    </DataTemplate>
+
+                    <!-- Привязка шаблонов узлов -->
+                    <go:Diagram.NodeTemplateDictionary>
+                        <DataTemplateDictionary>
+                            <DataTemplate x:Key="Ellipse" DataType="{x:Type local:BlockDiagramNodeData}">
+                                <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource NodeTemplate}" />
+                            </DataTemplate>
+                            <DataTemplate x:Key="Rectangle" DataType="{x:Type local:BlockDiagramNodeData}">
+                                <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource NodeTemplate}" />
+                            </DataTemplate>
+                            <!-- Добавьте другие шаблоны узлов здесь -->
+                        </DataTemplateDictionary>
+                    </go:Diagram.NodeTemplateDictionary>
+
+                    <!-- Привязка шаблона связи -->
+                    <go:Diagram.LinkTemplate>
+                        <DataTemplate>
+                            <go:LinkPanel>
+                                <go:LinkShape Stroke="Black"/>
+                                <Path Fill="Black" Stroke="Black" go:LinkPanel.ToArrow="Standard"/>
+                            </go:LinkPanel>
+                        </DataTemplate>
+                    </go:Diagram.LinkTemplate>
+                </go:Diagram>
             </Border>
 
         </Grid>
